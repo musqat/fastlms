@@ -18,7 +18,12 @@ public class MainController {
 //    String text = "<p>반갑습니다</p><p>안녕하세요</p>";
 //    mailComponents.sendMail(email, subject, text);
     return "index";
+  }
 
+
+  @RequestMapping("/error/denied")
+  public String errorDenied(){
+    return "error/denied";
   }
 
 

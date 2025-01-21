@@ -38,10 +38,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/",
             "/member/register",
             "/member/email-auth",
-            "/member/find/password",
-            "/member/reset/password")
+            "/member/find/password")
         .permitAll();
-
+    http.authorizeRequests()
+            .antMatchers("/admin/**")
+                .hasAuthority("ROLE_ADMIN");
     http.formLogin()
         .loginPage("/member/login")
         .failureHandler(getFailureHandler())
@@ -52,6 +53,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .logoutSuccessUrl("/")
                 .invalidateHttpSession(true);
 
+    http.exceptionHandling()
+        .accessDeniedPage("/error/denied");
 
     super.configure(http);
   }
