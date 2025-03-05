@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Data
-public class Member {
+public class Member implements MemberCode{
 
   @Id
   private String userId;
@@ -31,4 +31,6 @@ public class Member {
   private LocalDateTime resetPasswordLimitDt;
 
   private boolean adminYn;
+
+  private String userStatus; //이용가능한상태, 정지상태
 }
