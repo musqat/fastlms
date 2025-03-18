@@ -97,13 +97,13 @@
       <th>
         상태
       </th>
+      <th>
+        비고
+      </th>
     </tr>
     </thead>
     <tbody id="dataList">
     <tr th:each="x : ${list}">
-      <td>
-        <input type="checkbox" th:value="${x.id}"/>
-      </td>
       <td th:text="${x.seq}">1</td>
       <td>
         <p th:text="${x.regDtText}">2021.01.01</p>

@@ -18,6 +18,6 @@ public class ServiceResult {
   }
 
   public ServiceResult() {
-
+    result = true;
   }
 }
