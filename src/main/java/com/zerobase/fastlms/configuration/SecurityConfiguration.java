@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private final MemberService memberService;
 
   @Bean
-   PasswordEncoder getPasswordEncoder() {
+  PasswordEncoder getPasswordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
@@ -28,6 +29,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   UserAuthenticationFailureHandler getFailureHandler() {
     return new UserAuthenticationFailureHandler();
   }
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers("/favicon.ico", "/files/**");
+    super.configure(web);
+  }
+
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -42,8 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/member/find/password")
         .permitAll();
     http.authorizeRequests()
-            .antMatchers("/admin/**")
-                .hasAuthority("ROLE_ADMIN");
+        .antMatchers("/admin/**")
+        .hasAuthority("ROLE_ADMIN");
     http.formLogin()
         .loginPage("/member/login")
         .failureHandler(getFailureHandler())
@@ -51,8 +59,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     http.logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-            .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+        .logoutSuccessUrl("/")
+        .invalidateHttpSession(true);
 
     http.exceptionHandling()
         .accessDeniedPage("/error/denied");

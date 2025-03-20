@@ -16,4 +16,8 @@ public class CourseInput {
 
   //삭제를 위한 속성
   String idList;
+  
+  //파일 추가용
+  String filename;
+  String urlFilename;
 }

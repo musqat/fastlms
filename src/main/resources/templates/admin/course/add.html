@@ -53,7 +53,7 @@
   <a href="/admin/course/list.do">강좌 등록</a>
 </div>
 <div class="detail">
-  <form id="submitForm" method="post">
+  <form id="submitForm" method="post" enctype="multipart/form-data">
     <table>
       <tbody>
         <tr>
@@ -131,7 +131,12 @@
                    placeholder="할인 종료일 입력"/>
           </td>
         </tr>
-
+        <tr>
+          <th>첨부 파일</th>
+          <td>
+            <input type="file" name="file"/>
+          </td>
+        </tr>
 
       </tbody>
     </table>
